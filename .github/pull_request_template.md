@@ -6,7 +6,7 @@ Please provide a summary of your changes.
 
 ## Jira Reference
 
-- SC-XXX [Link to Jira issue]
+- SB-XXX [Link to Jira issue]
 
 ## Change Type
 

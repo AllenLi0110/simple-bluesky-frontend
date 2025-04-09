@@ -12,12 +12,12 @@
   </n-config-provider>
 </template>
 <script setup lang="ts">
-import { themeOverrides } from "./helpers/naive.config";
-import { onBeforeMount } from "vue";
-import hljs from "highlight.js/lib/core";
-import typescript from "highlight.js/lib/languages/typescript";
+import { themeOverrides } from './helpers/naive.config'
+import { onBeforeMount } from 'vue'
+import hljs from 'highlight.js/lib/core'
+import typescript from 'highlight.js/lib/languages/typescript'
 
 onBeforeMount(async () => {
-  hljs.registerLanguage("javascript", typescript);
-});
+  hljs.registerLanguage('javascript', typescript)
+})
 </script>
