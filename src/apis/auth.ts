@@ -7,27 +7,6 @@ export const authApi = {
       identifier,
       password,
     })
-    const {
-      did,
-      didDoc,
-      handle,
-      email,
-      emailConfirmed,
-      emailAuthFactor,
-      accessJwt,
-      refreshJwt,
-      active,
-    } = data.data
-    return {
-      did,
-      didDoc,
-      handle,
-      email,
-      emailConfirmed,
-      emailAuthFactor,
-      accessJwt,
-      refreshJwt,
-      active,
-    }
+    return data.data
   },
 }
