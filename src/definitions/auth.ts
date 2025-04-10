@@ -1,4 +1,4 @@
-import type { DidDoc } from '../models/did-doc'
+import type { DidDoc } from '../models/'
 
 export interface AuthState {
   isAuthenticated: boolean

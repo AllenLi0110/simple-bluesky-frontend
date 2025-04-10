@@ -1,5 +1,5 @@
 import api from './config'
-import type { SignInRequest, SignInResponse } from '../definitions/auth'
+import type { SignInRequest, SignInResponse } from '../definitions'
 
 export const authApi = {
   async signIn({ identifier, password }: SignInRequest): Promise<SignInResponse> {
