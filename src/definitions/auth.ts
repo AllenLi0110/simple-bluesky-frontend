@@ -2,7 +2,6 @@ import type { DidDoc } from '../models/'
 
 export interface AuthState {
   isAuthenticated: boolean
-  token: string | null
 }
 
 export interface SignInRequest {
