@@ -23,7 +23,12 @@ export const useAuthStore = defineStore('auth', {
       }
     },
     async signOut() {
-      this.isAuthenticated = false
+      try {
+        await authApi.signOut()
+        this.isAuthenticated = false
+      } catch (error) {
+        console.error('Sign Out Failed:', error)
+      }
     },
   },
 })

@@ -9,4 +9,7 @@ export const authApi = {
     })
     return data.data
   },
+  async signOut(): Promise<void> {
+    await api.post('./authentications/sign-out')
+  },
 }
