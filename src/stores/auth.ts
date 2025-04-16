@@ -1,23 +1,23 @@
 import { authApi } from '../apis/auth'
 import { defineStore } from 'pinia'
-import type { AuthState } from '../definitions'
+import type { AuthState, SignInRequest } from '../definitions'
 
 export const useAuthStore = defineStore('auth', {
   state: (): AuthState => ({
     isAuthenticated: false,
+    did: '',
   }),
   getters: {
     isSignedIn: state => state.isAuthenticated,
+    getDid: state => state.did,
   },
   actions: {
-    async signIn(identifier: string, password: string) {
+    async signIn(input: SignInRequest) {
       try {
-        const { accessJwt, refreshJwt, did, handle } = await authApi.signIn({
-          identifier,
-          password,
-        })
+        const { accessJwt, refreshJwt, did, handle } = await authApi.signIn(input)
         if (accessJwt && refreshJwt && did && handle) {
           this.isAuthenticated = true
+          this.did = did
         }
         return { success: true }
       } catch (error) {
@@ -29,16 +29,19 @@ export const useAuthStore = defineStore('auth', {
       try {
         await authApi.signOut()
         this.isAuthenticated = false
+        this.did = ''
       } catch (error) {
         console.error('Sign Out Failed:', error)
       }
     },
     async status() {
       try {
-        const { authenticated } = await authApi.status()
+        const { authenticated, did } = await authApi.status()
         this.isAuthenticated = authenticated
+        this.did = did
       } catch {
         this.isAuthenticated = false
+        this.did = ''
       }
       return this.isAuthenticated
     },

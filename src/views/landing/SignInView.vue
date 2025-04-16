@@ -47,7 +47,10 @@ async function handleSubmit() {
   error.value = ''
 
   try {
-    const result = await authStore.signIn(formValue.value.identifier, formValue.value.password)
+    const result = await authStore.signIn({
+      identifier: formValue.value.identifier,
+      password: formValue.value.password,
+    })
 
     if (result.success) {
       router.push(redirectPath.value)

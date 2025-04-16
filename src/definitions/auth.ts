@@ -2,6 +2,7 @@ import type { DidDoc } from '../models/'
 
 export interface AuthState {
   isAuthenticated: boolean
+  did: string
 }
 
 export interface SignInRequest {
@@ -23,4 +24,5 @@ export interface SignInResponse {
 
 export interface StatusResponse {
   authenticated: boolean
+  did: string
 }
