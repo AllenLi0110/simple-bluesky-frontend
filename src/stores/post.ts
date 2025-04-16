@@ -8,15 +8,9 @@ export const usePostStore = defineStore('post', {
   state: (): PostState => ({}),
   getters: {},
   actions: {
-    async post({ repo, collection, validate, record, swapCommit }: PostRequest) {
+    async post(payload: PostRequest) {
       try {
-        await postApi.post({
-          repo,
-          collection,
-          validate,
-          record,
-          swapCommit,
-        })
+        await postApi.post(payload)
       } catch (error) {
         console.error('Post Failed:', error)
       }
