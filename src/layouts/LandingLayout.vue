@@ -2,7 +2,7 @@
   <n-layout id="landing">
     <n-layout-content>
       <n-space vertical align="center" justify="center" :size="24">
-        <n-card class="auth-card">
+        <n-card class="card" data-test="card">
           <router-view></router-view>
         </n-card>
       </n-space>

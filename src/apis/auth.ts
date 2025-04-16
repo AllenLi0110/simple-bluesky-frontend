@@ -1,5 +1,5 @@
 import api from './config'
-import type { SignInRequest, SignInResponse } from '../definitions'
+import type { SignInRequest, SignInResponse, StatusResponse } from '../definitions'
 
 export const authApi = {
   async signIn({ identifier, password }: SignInRequest): Promise<SignInResponse> {
@@ -10,6 +10,10 @@ export const authApi = {
     return data.data
   },
   async signOut(): Promise<void> {
-    await api.post('./authentications/sign-out')
+    await api.delete('./authentications/sign-out')
+  },
+  async status(): Promise<StatusResponse> {
+    const { data } = await api.get('./authentications/status')
+    return data.data
   },
 }

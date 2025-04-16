@@ -20,3 +20,7 @@ export interface SignInResponse {
   refreshJwt: string
   active?: boolean
 }
+
+export interface StatusResponse {
+  authenticated: boolean
+}

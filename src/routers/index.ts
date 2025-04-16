@@ -21,18 +21,17 @@ const router = createRouter({
 
 router.beforeEach(async (to, _from, next) => {
   const authStore = useAuthStore()
+  await authStore.status()
+  if (to.meta.guest && authStore.isAuthenticated) {
+    return next({ name: 'Home.Main' })
+  }
   if (to.meta.authenticated && !authStore.isAuthenticated) {
-    next({
+    return next({
       name: 'Auth.SignIn',
       query: { redirect: to.fullPath },
     })
-    return
   }
-  if (to.meta.guest && authStore.isAuthenticated) {
-    next({ name: 'Home.Main' })
-    return
-  }
-  next()
+  return next()
 })
 
 export default router
