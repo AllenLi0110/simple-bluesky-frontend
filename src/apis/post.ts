@@ -3,21 +3,9 @@ import type { PostRequest, PostResponse } from '../definitions'
 import { useAuthStore } from '../stores/auth'
 
 export const postApi = {
-  async post({
-    repo,
-    collection,
-    validate,
-    record,
-    swapCommit,
-  }: PostRequest): Promise<PostResponse> {
+  async post(payload: PostRequest): Promise<PostResponse> {
     const authStore = useAuthStore()
-    const { data } = await api.post(`/did/${authStore.did}/posts`, {
-      repo,
-      collection,
-      validate,
-      record,
-      swapCommit,
-    })
+    const { data } = await api.post(`/did/${authStore.did}/posts`, payload)
     return data.data
   },
 }

@@ -12,12 +12,9 @@ export const useAuthStore = defineStore('auth', {
     getDid: state => state.did,
   },
   actions: {
-    async signIn({ identifier, password }: SignInRequest) {
+    async signIn(payload: SignInRequest) {
       try {
-        const { accessJwt, refreshJwt, did, handle } = await authApi.signIn({
-          identifier,
-          password,
-        })
+        const { accessJwt, refreshJwt, did, handle } = await authApi.signIn(payload)
         if (accessJwt && refreshJwt && did && handle) {
           this.isAuthenticated = true
           this.did = did
