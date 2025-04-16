@@ -1,5 +1,8 @@
 import type { AppBskyFeedPostRecord } from '../models/record'
 
+export interface PostState {
+  posts: Record<string, any>
+}
 export interface PostRequest {
   repo: string
   collection: string
