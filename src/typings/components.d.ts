@@ -8,9 +8,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    CreatePost: typeof import('./../components/post/CreatePost.vue')['default']
     CreatePostView: typeof import('./../components/post/CreatePostView.vue')['default']
-    MainView: typeof import('./../components/post/MainView.vue')['default']
     NConfigProvider: typeof import('naive-ui')['NConfigProvider']
     NDialogProvider: typeof import('naive-ui')['NDialogProvider']
     NLoadingBarProvider: typeof import('naive-ui')['NLoadingBarProvider']
