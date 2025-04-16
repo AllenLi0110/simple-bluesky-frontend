@@ -10,7 +10,7 @@ export const usePostStore = defineStore('post', {
   actions: {
     async post({ repo, collection, rkey, validate, record, swapCommit }: PostRequest) {
       try {
-        const {} = await postApi.post({
+        await postApi.post({
           repo,
           collection,
           rkey,
