@@ -5,8 +5,10 @@
         <n-button text>
           <router-link to="/" class="logo-link">Simple Bluesky</router-link>
         </n-button>
-        <n-space v-if="isAuthenticated">
-          <n-button type="error" ghost @click="handleSignOut">Sign Out</n-button>
+        <n-space>
+          <n-button type="error" ghost @click="handleSignOut" data-test="sign-out-btn"
+            >Sign Out</n-button
+          >
         </n-space>
       </n-space>
     </n-layout-header>
@@ -19,15 +21,12 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
 import { NLayout, NLayoutHeader, NLayoutContent, NSpace, NButton } from 'naive-ui'
 
 const router = useRouter()
 const authStore = useAuthStore()
-
-const isAuthenticated = computed(() => authStore.isAuthenticated)
 
 async function handleSignOut() {
   await authStore.signOut()

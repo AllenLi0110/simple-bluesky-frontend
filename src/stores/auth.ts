@@ -12,8 +12,11 @@ export const useAuthStore = defineStore('auth', {
   actions: {
     async signIn(identifier: string, password: string) {
       try {
-        const { accessJwt } = await authApi.signIn({ identifier, password })
-        if (accessJwt) {
+        const { accessJwt, refreshJwt, did, handle } = await authApi.signIn({
+          identifier,
+          password,
+        })
+        if (accessJwt && refreshJwt && did && handle) {
           this.isAuthenticated = true
         }
         return { success: true }
@@ -29,6 +32,15 @@ export const useAuthStore = defineStore('auth', {
       } catch (error) {
         console.error('Sign Out Failed:', error)
       }
+    },
+    async status() {
+      try {
+        const { authenticated } = await authApi.status()
+        this.isAuthenticated = authenticated
+      } catch {
+        this.isAuthenticated = false
+      }
+      return this.isAuthenticated
     },
   },
 })
