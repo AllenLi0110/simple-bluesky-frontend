@@ -22,7 +22,7 @@
 
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
-import { useAuthStore } from '../stores/auth'
+import { useAuthStore } from '../stores/auths'
 import { NLayout, NLayoutHeader, NLayoutContent, NSpace, NButton } from 'naive-ui'
 
 const router = useRouter()
@@ -42,3 +42,4 @@ async function handleSignOut() {
   text-decoration: none;
 }
 </style>
+../stores/auths

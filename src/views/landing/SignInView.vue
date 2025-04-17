@@ -22,7 +22,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import { useAuthStore } from '../../stores/auth'
+import { useAuthStore } from '../../stores/auths'
 import { NCard, NForm, NFormItem, NInput, NButton, NAlert } from 'naive-ui'
 
 const router = useRouter()
@@ -72,3 +72,4 @@ async function handleSubmit() {
   margin: 40px auto;
 }
 </style>
+../../stores/auths

@@ -1,2 +1,3 @@
-export * from './auth'
-export * from './post'
+export * from './auths'
+export * from './posts'
+export * from './feeds'

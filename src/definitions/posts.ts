@@ -3,7 +3,7 @@ import type { AppBskyFeedPostRecord } from '../models/record'
 export interface PostState {
   posts: Record<string, any>
 }
-export interface PostRequest {
+export interface CreatePostRequest {
   repo: string
   collection: string
   rkey?: string
@@ -11,7 +11,7 @@ export interface PostRequest {
   record: AppBskyFeedPostRecord
   swapCommit?: string
 }
-export interface PostResponse {
+export interface CreatePostResponse {
   uri: string
   cid: string
   commit: Commit

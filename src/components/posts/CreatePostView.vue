@@ -24,8 +24,8 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { usePostStore } from '../../stores/post'
-import { useAuthStore } from '../../stores/auth'
+import { usePostStore } from '../../stores/posts'
+import { useAuthStore } from '../../stores/auths'
 import { PostCollection } from '../../definitions'
 
 const CHARACTER_LIMIT = 300
@@ -42,7 +42,7 @@ const createPost = async () => {
   if (!postText.value.trim()) return
   isPosting.value = true
   try {
-    await postStore.post({
+    await postStore.createPost({
       repo: authStore.did,
       collection: PostCollection.AppBskyFeedPost,
       validate: true,
@@ -125,3 +125,4 @@ const createPost = async () => {
   cursor: not-allowed;
 }
 </style>
+../../stores/auths ../../stores/posts
