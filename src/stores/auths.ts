@@ -1,4 +1,4 @@
-import { authApi } from '../apis/auth'
+import { authApi } from '../apis/auths'
 import { defineStore } from 'pinia'
 import type { AuthState, SignInRequest } from '../definitions'
 

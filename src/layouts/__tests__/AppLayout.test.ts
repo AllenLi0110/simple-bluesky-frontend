@@ -3,7 +3,7 @@ import { mount } from '@vue/test-utils'
 import { createRouter, createWebHistory } from 'vue-router'
 import { createPinia, setActivePinia } from 'pinia'
 import AppLayout from '../AppLayout.vue'
-import { useAuthStore } from '../../stores/auth'
+import { useAuthStore } from '../../stores/auths'
 
 vi.mock('naive-ui', () => {
   const createStub = (name: string) => ({

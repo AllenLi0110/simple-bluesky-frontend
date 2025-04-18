@@ -1,6 +1,6 @@
-import { postApi } from '../apis/post'
+import { postApi } from '../apis/posts'
 import { defineStore } from 'pinia'
-import type { PostRequest, PostState } from '../definitions'
+import type { CreatePostRequest, PostState } from '../definitions'
 
 export const usePostStore = defineStore('post', {
   state: (): PostState => ({
@@ -8,16 +8,16 @@ export const usePostStore = defineStore('post', {
   }),
   getters: {},
   actions: {
-    async post(payload: PostRequest) {
+    async createPost(payload: CreatePostRequest) {
       try {
-        const data = await postApi.post(payload)
+        const data = await postApi.createPost(payload)
         const rkey = data.uri.split('/').pop()
         if (rkey) {
           this.posts[rkey] = data
         }
         return data
       } catch (error) {
-        console.error('Post Failed:', error)
+        console.error('CreatePost Failed:', error)
       }
     },
   },

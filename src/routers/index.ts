@@ -1,7 +1,7 @@
 import { authRouter } from './auth'
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
 import { homeRouter } from './home'
-import { useAuthStore } from '../stores/auth'
+import { useAuthStore } from '../stores/auths'
 
 const routes: Array<RouteRecordRaw> = [
   {
