@@ -1,36 +1,44 @@
 <template>
   <div class="create-post">
-    <div class="post-input-container">
-      <textarea
-        v-model="postText"
-        class="post-input"
+    <n-card class="post-input-container">
+      <n-input
+        v-model:value="postText"
+        type="textarea"
         placeholder="What's up?"
-        rows="4"
+        :rows="1"
         :maxlength="CHARACTER_LIMIT"
       />
       <div class="post-info">
-        <span class="character-count" :class="{ 'near-limit': remainingChars <= 20 }">
+        <n-text :type="remainingChars <= 20 ? 'error' : 'depth'">
           {{ remainingChars }} characters remaining
-        </span>
+        </n-text>
         <div class="post-actions">
-          <button @click="createPost" class="post-button" :disabled="!postText.trim() || isPosting">
+          <n-button
+            @click="createPost"
+            type="primary"
+            :disabled="!postText.trim() || isPosting"
+            :loading="isPosting"
+          >
             {{ isPosting ? 'Posting...' : 'Post' }}
-          </button>
+          </n-button>
         </div>
       </div>
-    </div>
+    </n-card>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
+import { NCard, NInput, NButton, NText } from 'naive-ui'
 import { usePostStore } from '../../stores/posts'
 import { useAuthStore } from '../../stores/auths'
+import { useFeedStore } from '../../stores/feeds'
 import { PostCollection } from '../../definitions'
 
 const CHARACTER_LIMIT = 300
 const postStore = usePostStore()
 const authStore = useAuthStore()
+const feedStore = useFeedStore()
 const postText = ref('')
 const isPosting = ref(false)
 
@@ -54,6 +62,10 @@ const createPost = async () => {
       },
     })
     postText.value = ''
+    await feedStore.listFeeds({
+      actor: authStore.did,
+      limit: 10,
+    })
   } catch (error) {
     console.error('Failed to create post:', error)
   } finally {
@@ -90,39 +102,10 @@ const createPost = async () => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-.character-count {
-  color: #536471;
-  font-size: 0.9rem;
-}
-
-.character-count.near-limit {
-  color: #ff4b4b;
+  margin-top: 1rem;
 }
 
 .post-actions {
   margin-left: 1rem;
 }
-
-.post-button {
-  padding: 0.5rem 1.5rem;
-  background-color: #1da1f2;
-  color: white;
-  border: none;
-  border-radius: 9999px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: background-color 0.2s;
-}
-
-.post-button:hover:not(:disabled) {
-  background-color: #1a91da;
-}
-
-.post-button:disabled {
-  background-color: #9fd0f5;
-  cursor: not-allowed;
-}
 </style>
-../../stores/auths ../../stores/posts

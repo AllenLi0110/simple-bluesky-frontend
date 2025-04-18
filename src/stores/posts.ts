@@ -15,6 +15,8 @@ export const usePostStore = defineStore('post', {
         if (rkey) {
           this.posts[rkey] = data
         }
+        // Emit a custom event when post is created
+        window.dispatchEvent(new CustomEvent('post-created'))
         return data
       } catch (error) {
         console.error('CreatePost Failed:', error)
