@@ -23,6 +23,11 @@ export interface AppBskyFeedPostRecord {
   tags?: string[]
   /** Client-declared timestamp when this post was originally created. */
   createdAt: string
+  /** Customer object with geographical coordinates. */
+  location?: {
+    latitude: number
+    longitude: number
+  }
   [k: string]: unknown
 }
 

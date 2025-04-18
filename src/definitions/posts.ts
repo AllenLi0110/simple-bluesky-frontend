@@ -32,6 +32,7 @@ export enum EmbedType {
   Video = 'app.bsky.embed.video',
   External = 'app.bsky.embed.external',
   Record = 'app.bsky.embed.record',
+  Location = 'app.bsky.embed.location',
   RecordWithMedia = 'app.bsky.embed.recordWithMedia',
 }
 

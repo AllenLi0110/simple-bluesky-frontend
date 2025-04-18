@@ -9,16 +9,11 @@
         :maxlength="CHARACTER_LIMIT"
       />
       <div class="post-info">
-        <n-text :type="remainingChars <= 20 ? 'error' : 'depth'">
+        <n-text :type="isNearLimit ? 'error' : 'depth'">
           {{ remainingChars }} characters remaining
         </n-text>
         <div class="post-actions">
-          <n-button
-            @click="createPost"
-            type="primary"
-            :disabled="!postText.trim() || isPosting"
-            :loading="isPosting"
-          >
+          <n-button @click="createPost" type="primary" :disabled="!canPost" :loading="isPosting">
             {{ isPosting ? 'Posting...' : 'Post' }}
           </n-button>
         </div>
@@ -28,50 +23,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import { NCard, NInput, NButton, NText } from 'naive-ui'
-import { usePostStore } from '../../stores/posts'
-import { useAuthStore } from '../../stores/auths'
-import { useFeedStore } from '../../stores/feeds'
-import { PostCollection } from '../../definitions'
+import { usePostComposer } from '../../composables/posts/posts'
 
-const CHARACTER_LIMIT = 300
-const postStore = usePostStore()
-const authStore = useAuthStore()
-const feedStore = useFeedStore()
-const postText = ref('')
-const isPosting = ref(false)
-
-const remainingChars = computed(() => {
-  return CHARACTER_LIMIT - postText.value.length
-})
-
-const createPost = async () => {
-  if (!postText.value.trim()) return
-  isPosting.value = true
-  try {
-    await postStore.createPost({
-      repo: authStore.did,
-      collection: PostCollection.AppBskyFeedPost,
-      validate: true,
-      record: {
-        $type: PostCollection.AppBskyFeedPost,
-        text: postText.value,
-        langs: ['en'],
-        createdAt: new Date().toISOString(),
-      },
-    })
-    postText.value = ''
-    await feedStore.listFeeds({
-      actor: authStore.did,
-      limit: 10,
-    })
-  } catch (error) {
-    console.error('Failed to create post:', error)
-  } finally {
-    isPosting.value = false
-  }
-}
+const { CHARACTER_LIMIT, postText, isPosting, remainingChars, isNearLimit, canPost, createPost } =
+  usePostComposer()
 </script>
 
 <style scoped>

@@ -9,7 +9,7 @@
           <template #description>
             <n-text>{{ item.post.record.text }}</n-text>
             <n-space
-              v-if="item.post.record.embed?.$type === 'app.bsky.embed.images'"
+              v-if="item.post.record.embed?.$type === EmbedType.Images"
               :wrap="true"
               :size="12"
               class="image-container"
@@ -32,7 +32,12 @@
               </n-image-group>
             </n-space>
             <br />
-            <n-text depth="3">{{ formatDate(item.post.record.createdAt) }}</n-text>
+            <n-space align="center" style="margin-top: 8px" :size="16">
+              <n-text depth="3">{{ formatDate(item.post.record.createdAt) }}</n-text>
+              <div v-if="item.post.record.location">
+                <n-text depth="3"> 📍 {{ locationMap[item.post.uri] }} </n-text>
+              </div>
+            </n-space>
           </template>
         </n-thing>
       </n-list-item>
@@ -42,29 +47,11 @@
 
 <script setup lang="ts">
 import { NList, NListItem, NThing, NText, NSpace, NImage, NImageGroup } from 'naive-ui'
-import { storeToRefs } from 'pinia'
-import { useFeedStore } from '../../stores/feeds'
-import { useAuthStore } from '../../stores/auths'
-import { onMounted } from 'vue'
+import { useFeed, formatDate } from '../../composables/feeds/feeds'
+import { getBlobUrl } from '../../utils/get-blob-url'
+import { EmbedType } from '../../definitions'
 
-const feedStore = useFeedStore()
-const authStore = useAuthStore()
-const { feeds } = storeToRefs(feedStore)
-
-const formatDate = (dateString: string) => {
-  return new Date(dateString).toLocaleString()
-}
-
-const getBlobUrl = (link: string) => {
-  return `https://bsky.social/xrpc/com.atproto.sync.getBlob?did=${authStore.did}&cid=${link}`
-}
-
-onMounted(async () => {
-  await feedStore.listFeeds({
-    actor: authStore.did,
-    limit: 10,
-  })
-})
+const { feeds, locationMap } = useFeed()
 </script>
 
 <style scoped>
