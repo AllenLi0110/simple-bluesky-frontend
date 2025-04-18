@@ -77,7 +77,7 @@ const createPost = async () => {
 <style scoped>
 .create-post {
   padding: 1rem;
-  max-width: 600px;
+  max-width: 800px;
   margin: 0 auto;
 }
 
