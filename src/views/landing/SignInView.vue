@@ -72,4 +72,3 @@ async function handleSubmit() {
   margin: 40px auto;
 }
 </style>
-../../stores/auths

@@ -42,4 +42,3 @@ async function handleSignOut() {
   text-decoration: none;
 }
 </style>
-../stores/auths
