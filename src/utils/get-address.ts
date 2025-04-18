@@ -7,7 +7,8 @@ export const getAddressFromCoordinates = async (lat: number, lng: number) => {
     const response = await axios.get(url)
     if (response.data && response.data.address) {
       const { road, suburb, city, country } = response.data.address
-      return `${road || ''}, ${suburb || ''}, ${city || ''}, ${country || ''}`
+      const addressComponents = [road, suburb, city, country].filter(Boolean)
+      return addressComponents.join(', ')
     }
     return 'Unknown Location'
   } catch (error) {
