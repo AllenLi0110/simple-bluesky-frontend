@@ -1,7 +1,7 @@
 {
   "name": "my-vue3-ts-project",
   "private": true,
-  "version": "0.1.5",
+  "version": "0.1.6",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -12,6 +12,7 @@
     "test:unit": "vitest"
   },
   "dependencies": {
+    "@vicons/ionicons5": "^0.13.0",
     "axios": "^1.8.4",
     "naive-ui": "^2.41.0",
     "pinia": "^3.0.1",

@@ -2,7 +2,7 @@ import { ref, computed } from 'vue'
 import { usePostStore } from '../../stores/posts'
 import { useAuthStore } from '../../stores/auths'
 import { useFeedStore } from '../../stores/feeds'
-import { PostCollection } from '../../definitions'
+import { AtProtoPost } from '../../definitions'
 
 export function usePostComposer() {
   const CHARACTER_LIMIT = 300
@@ -28,6 +28,10 @@ export function usePostComposer() {
       )
     })
 
+  const refreshFeeds = async (limit = 10) => {
+    await feedStore.listFeeds({ actor: authStore.did, limit })
+  }
+
   const createPost = async () => {
     if (!postText.value.trim()) return
     isPosting.value = true
@@ -36,7 +40,7 @@ export function usePostComposer() {
     try {
       location.value = await getCurrentLocation()
       const record = {
-        $type: PostCollection.AppBskyFeedPost,
+        $type: AtProtoPost.AppBskyFeedPost,
         text: postText.value,
         langs: ['en'],
         createdAt: new Date().toISOString(),
@@ -50,14 +54,14 @@ export function usePostComposer() {
 
       const postData = {
         repo: authStore.did,
-        collection: PostCollection.AppBskyFeedPost,
+        collection: AtProtoPost.AppBskyFeedPost,
         validate: true,
         record,
       }
 
       await postStore.createPost(postData)
       postText.value = ''
-      await feedStore.listFeeds({ actor: authStore.did, limit: 10 })
+      await refreshFeeds()
     } catch (err) {
       console.error('Post failed:', err)
     } finally {
