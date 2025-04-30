@@ -35,6 +35,15 @@ export enum EmbedType {
   RecordWithMedia = 'app.bsky.embed.recordWithMedia',
 }
 
-export enum PostCollection {
+export enum AtProtoPost {
   AppBskyFeedPost = 'app.bsky.feed.post',
+}
+
+export interface DeletePostRequest {
+  repo: string
+  collection: string
+  rkey: string
+}
+export interface DeletePostResponse {
+  commit?: Commit
 }
